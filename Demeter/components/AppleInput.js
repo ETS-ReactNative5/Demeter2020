@@ -27,20 +27,13 @@ const CONFIG = {
 };
 
 const IMAGENET_CLASSES = {
-  0: 'Tomato___Bacterial_spot', 
-  1: 'Tomato___Late_blight',
-  2: 'Tomato___Tomato_mosaic_virus',
-  3: 'Tomato___Target_Spot',
-  4: 'Tomato___Leaf_Mold',
-  5: 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
-  6: 'Tomato___Early_blight',
-  7: 'Tomato___Spider_mites Two-spotted_spider_mite',
-  8: 'Tomato___Septoria_leaf_spot',
-  9: 'Tomato___healthy'
-  
+  0: 'Apple___Apple_scab', 
+  1: 'Apple___healthy',
+  2: 'Apple___Cedar_apple_rust',
+  3: 'Apple___Black_rot',  
 }
 
-class ImageInput extends React.Component {
+class AppleInput extends React.Component {
 
   state = {
     showDisplay: true,
@@ -72,8 +65,8 @@ class ImageInput extends React.Component {
     // model = undefined; 
     // console.log('weowi;rjg')
     try {
-      const modelJson = require('../assets/tfjs_model_to_use_trained/model.json')
-      const modelWeights = require('../assets/tfjs_model_to_use_trained/group1-shard1of1.bin') 
+      const modelJson = require('../assets/apple_model/model.json')
+      const modelWeights = require('../assets/apple_model/group1-shard1of1.bin') 
       // the quantization has reduced all the shard weights to one file. Before I think it was like 32 or so different files!
       console.log('fetching now')
       return await tf.loadLayersModel(bundleResourceIO(modelJson, modelWeights))//'file://tfjs-models/tfjs_model_to_use/content/tfjs_model_to_use/model.json')//'https://storage.googleapis.com/tfjs-models/tfjs/iris_v1/model.json')
@@ -81,7 +74,7 @@ class ImageInput extends React.Component {
       // online load, server?
     }
     catch (error) {
-      console.log('dfslkmlsemo')
+      console.log('Error loading model')
       console.log(error)
     }
     // model = await tf.loadModel('../tfjs-models/tfjs_model_to_use/content/tfjs_model_to_use/model.json')//(`http://localhost:81/tfjs-models/${name}/model.json`); //replace localhost w/ 10.0.0.14
@@ -117,6 +110,9 @@ class ImageInput extends React.Component {
   imageToTensor(rawImageData) {
     const TO_UINT8ARRAY = true
     const { width, height, data } = jpeg.decode(rawImageData, TO_UINT8ARRAY)
+    console.log(`Image Dimensions: ${width}x${height}`)
+    // the data variable seems like too much to print, and may cause the long loading screen, console.logs after the output, or app crash
+    // not sure if the app crash was caused by trying to print the data variable specifically, but there was an error that 'request entity was too large' probably for this
 
     // Drop the alpha channel info for mobilenet
     const buffer = new Uint8Array(width * height * 3)
@@ -137,7 +133,9 @@ class ImageInput extends React.Component {
   }
 
   classifyImage = async () => {
+    
     try {
+      console.log('starting classify...')
       this.setState({showDisplay:false})
       const imageAssetPath = Image.resolveAssetSource(this.state.image)
       const response = await fetch(imageAssetPath.uri, {}, { isBinary: true })
@@ -182,48 +180,6 @@ class ImageInput extends React.Component {
       console.log(error)
     }
   }
-  classifyImageNull = async () => {
-    try {
-      // const image = require('../assets/Travel_CENTERS_OF_America_1563212947.jpg')
-
-      // const response = await fetch(this.state.uri, {}, { isBinary: true });
-      // const imageData = await response.arrayBuffer();
-      // const imageTensor = decodeJpeg(imageData);
-
-      // const predictions = (await model.predict(imageTensor))[0];
-
-      // const imageAssetPath = Image.resolveAssetSource(image);
-      // const response = await fetch(imageAssetPath.uri, {}, { isBinary: true });
-      // const imageData = await response.arrayBuffer();
-      // console.log('weoi')
-      // const imageTensor = decodeJpeg(imageData);
-      // console.log('weoierg')
-
-      // const prediction = (await this.model.predict(imageTensor))[0];
-
-      // const imageAssetPath = Image.resolveAssetSource(this.state.image)
-      // const response = await fetch(imageAssetPath.uri, {}, { isBinary: true })
-      // const rawImageData = await response.arrayBuffer()
-      // const imageTensor = this.imageToTensor(rawImageData)
-      // const predictions = await this.model.classify(imageTensor)
-      // this.setState({ predictions:'yay' })
-      this.setState({ predictions: IMAGENET_CLASSES[5] })
-      
-      this.props.navigation.navigate("ImageOutput", {uri: this.state.uri, predictions: IMAGENET_CLASSES[5]})
-      this.setState({showDisplay:true})
-      // this.props.navigation.navigate("ImageOutput", {uri: this.state.uri, predictions: predictions})
-      // console.log("pred" + predictions)
-      // console.log(predictions)
-
-      // ------------
-
-
-      // ------------
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
 
   // }
   selectImage = async () => {
@@ -268,7 +224,7 @@ class ImageInput extends React.Component {
         <View style={styles.container} justifyContent = 'flex-start'>
           <StatusBar barStyle='light-content' />
           <View style={styles.loadingContainer}>
-            <Text style={{fontSize: 40, top: 7, fontWeight: 'bold', fontFamily: 'Arial'}}>Tomato Diseases</Text>
+            <Text style={{fontSize: 40, top: 7, fontWeight: 'bold', fontFamily: 'Arial'}}>Apple Diseases</Text>
             <View style={styles.loadingModelContainer}>
               <Text style={styles.text}>Please wait for the model to load: </Text>
               {isModelReady ? (
@@ -282,7 +238,7 @@ class ImageInput extends React.Component {
           <View style = {styles.imageContainer}>
               <Image 
                 style = {styles.imageContainer}
-                source = {require('../assets/coverPhoto.jpeg')} 
+                source = {require('../assets/appleCover.jpg')} 
               />
           </View>
           <View>
@@ -428,7 +384,7 @@ export const styles = StyleSheet.create({
   }
 })
 
-export default ImageInput
+export default AppleInput
 
 // import React, {useState, useEffect} from 'react';
 // import { StyleSheet, Text, View, Picker, FlatList,Image,Button, TouchableHighlight, ActivityIndicator,

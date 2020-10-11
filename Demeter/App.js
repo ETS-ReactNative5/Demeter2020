@@ -62,6 +62,8 @@ import CameraRollPicker from 'react-native-camera-roll-picker';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
+import AppleInput from './components/AppleInput'
+
 // import CameraRoll from './components/CameraRoll'
 // import { RNCamera } from 'react-native-camera';
 // import { Camera } from 'expo-camera';
@@ -88,7 +90,7 @@ export default function MainStackScreen() {
   return (
     <NavigationContainer >
       <MainStack.Navigator initialRouteName="ImageInput">
-        <MainStack.Screen name="ImageInput" component={ImageInput} options={{headerShown: false}}/>
+        <MainStack.Screen name="ImageInput" component={AppleInput} options={{headerShown: false}}/>
         <MainStack.Screen name="ImageOutput" component={ImageOutput} options={{headerShown: false}}/>
       </MainStack.Navigator>
     </NavigationContainer>
