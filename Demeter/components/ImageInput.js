@@ -73,7 +73,8 @@ class ImageInput extends React.Component {
     // console.log('weowi;rjg')
     try {
       const modelJson = require('../assets/tfjs_model_to_use_trained/model.json')
-      const modelWeights = require('../assets/tfjs_model_to_use_trained/group1-shard1of1.bin')
+      const modelWeights = require('../assets/tfjs_model_to_use_trained/group1-shard1of1.bin') 
+      // the quantization has reduced all the shard weights to one file. Before I think it was like 32 or so different files!
       console.log('fetching now')
       return await tf.loadLayersModel(bundleResourceIO(modelJson, modelWeights))//'file://tfjs-models/tfjs_model_to_use/content/tfjs_model_to_use/model.json')//'https://storage.googleapis.com/tfjs-models/tfjs/iris_v1/model.json')
       // local load look at google's main example - why cant it resolve .bin?
@@ -267,7 +268,7 @@ class ImageInput extends React.Component {
         <View style={styles.container} justifyContent = 'flex-start'>
           <StatusBar barStyle='light-content' />
           <View style={styles.loadingContainer}>
-            <Text style={{fontSize: 40, top: 7, fontWeight: 'bold', fontFamily: 'Roboto'}}>Tomato Diseases</Text>
+            <Text style={{fontSize: 40, top: 7, fontWeight: 'bold', fontFamily: 'Arial'}}>Tomato Diseases</Text>
             <View style={styles.loadingModelContainer}>
               <Text style={styles.text}>Please wait for the model to load: </Text>
               {isModelReady ? (
@@ -288,14 +289,14 @@ class ImageInput extends React.Component {
             <TouchableOpacity
               disabled={isModelReady ? (false): (true)}
               style={isModelReady ? (styles.imageWrapper): (styles.imageWrapperDisabled) }
-              // onPress={isModelReady ? this.takePhoto : undefined}
-              onPress={()=>{
-                axios.post('http://192.168.0.21:4000/create-account').then(res => {
-                  console.log(res)
-                }).catch((err)=>{
-                  console.log(err)
-                })
-              }}
+              onPress={isModelReady ? this.takePhoto : undefined}
+              // onPress={()=>{
+              //   axios.post('http://192.168.0.21:4000/create-account').then(res => {
+              //     console.log(res)
+              //   }).catch((err)=>{
+              //     console.log(err)
+              //   })
+              // }}
               >
             
               {(
@@ -355,7 +356,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     top: 20,
     marginBottom: 40,
-    fontFamily:'Roboto',
+    fontFamily:'Arial',
   },
   choosetext: {
     fontWeight: "bold",
