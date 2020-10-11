@@ -20,6 +20,7 @@ import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import ImageResizer from 'react-native-image-resizer';
 import axios from 'axios'
+import { connect } from "react-redux";
 
 const CONFIG = {
   allowsEditing: true,
@@ -172,7 +173,7 @@ class ImageInput extends React.Component {
       console.log('max: ' + maxIndex)
       console.log(IMAGENET_CLASSES[maxIndex])
       this.setState({ predictions: IMAGENET_CLASSES[maxIndex] })
-      
+      this.saveToHistory(this.state.uri, IMAGENET_CLASSES[maxIndex])
       this.props.navigation.navigate("ImageOutput", {uri: this.state.uri, predictions: IMAGENET_CLASSES[maxIndex]})
       this.setState({showDisplay:true})
       // console.log("pred " + predictions)
@@ -182,48 +183,10 @@ class ImageInput extends React.Component {
       console.log(error)
     }
   }
-  classifyImageNull = async () => {
-    try {
-      // const image = require('../assets/Travel_CENTERS_OF_America_1563212947.jpg')
 
-      // const response = await fetch(this.state.uri, {}, { isBinary: true });
-      // const imageData = await response.arrayBuffer();
-      // const imageTensor = decodeJpeg(imageData);
-
-      // const predictions = (await model.predict(imageTensor))[0];
-
-      // const imageAssetPath = Image.resolveAssetSource(image);
-      // const response = await fetch(imageAssetPath.uri, {}, { isBinary: true });
-      // const imageData = await response.arrayBuffer();
-      // console.log('weoi')
-      // const imageTensor = decodeJpeg(imageData);
-      // console.log('weoierg')
-
-      // const prediction = (await this.model.predict(imageTensor))[0];
-
-      // const imageAssetPath = Image.resolveAssetSource(this.state.image)
-      // const response = await fetch(imageAssetPath.uri, {}, { isBinary: true })
-      // const rawImageData = await response.arrayBuffer()
-      // const imageTensor = this.imageToTensor(rawImageData)
-      // const predictions = await this.model.classify(imageTensor)
-      // this.setState({ predictions:'yay' })
-      this.setState({ predictions: IMAGENET_CLASSES[5] })
-      
-      this.props.navigation.navigate("ImageOutput", {uri: this.state.uri, predictions: IMAGENET_CLASSES[5]})
-      this.setState({showDisplay:true})
-      // this.props.navigation.navigate("ImageOutput", {uri: this.state.uri, predictions: predictions})
-      // console.log("pred" + predictions)
-      // console.log(predictions)
-
-      // ------------
-
-
-      // ------------
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
+  saveToHistory = (uri, diag) => {
+    this.props.dispatch({ type: 'ADDDIAG', diagnosis: {uri: uri, diag: diag} });
+  };
 
   // }
   selectImage = async () => {
@@ -313,6 +276,16 @@ class ImageInput extends React.Component {
                 <Text style={styles.choosetext}>Tap to upload photo</Text>
               )}
             </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.imageWrapper}
+              onPress={() => this.props.navigation.navigate("History", {})}
+              >
+              {(
+                <Text style={styles.choosetext}>View Previous Diagnoses</Text>
+              )}
+            </TouchableOpacity>
+
           </View>
           {/* <Text>{predictions}</Text>       */}
         </View>
@@ -428,7 +401,16 @@ export const styles = StyleSheet.create({
   }
 })
 
-export default ImageInput
+function mapStateToProps(state) {
+  return {
+    // becomes the props for this component via connect()
+    diagnoses: state.diagnoses
+    // sometimes you can just pass the whole state through but its better to filter
+  };
+}
+
+export default connect(mapStateToProps)(ImageInput);
+// export default ImageInput
 
 // import React, {useState, useEffect} from 'react';
 // import { StyleSheet, Text, View, Picker, FlatList,Image,Button, TouchableHighlight, ActivityIndicator,

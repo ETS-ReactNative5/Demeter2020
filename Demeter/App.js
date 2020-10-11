@@ -1,6 +1,8 @@
-import 'react-native-gesture-handler'; 
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
 // import React, { useState, useEffect } from 'react';
 // import { Text, View, TouchableOpacity } from 'react-native';
@@ -20,7 +22,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 //   if (hasPermission === null) {
 //     return <View />;
 //   }
-  
+
 //   if (hasPermission === false) {
 //     return <Text>No access to camera</Text>;
 //   }
@@ -53,7 +55,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 //     </View>
 //   );
 // }
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import SelectScreen from './components/SelectScreen'
 import ImageInput from './components/ImageInput'
@@ -63,38 +65,60 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 import AppleInput from './components/AppleInput'
+import History from './components/History'
 
 // import CameraRoll from './components/CameraRoll'
 // import { RNCamera } from 'react-native-camera';
 // import { Camera } from 'expo-camera';
+const initialState = {
+  diagnoses: []
+};
+
+function reducer(state = initialState, action) {
+  console.log("reducer", state, action);
+  switch (action.type) {
+    case "ADDDIAG":
+      return {
+        ...state,
+        diagnoses: [...state.diagnoses, action.diagnosis]
+      };
+    default:
+      return state;
+  }
+}
+const store = createStore(reducer);
+// store.dispatch({type: 'ADDDIAG', uri: 'baller1'})
+// store.dispatch({type: 'ADDDIAG', uri: 'baller2'})
 
 function App() {
-  const [selectedModel,setSelectedModel] = useState(null)
+  const [selectedModel, setSelectedModel] = useState(null)
   const [hasPermission, setHasPermission] = useState(null);
   // const [type, setType] = useState(Camera.Constants.Type.back);
 
-  
+
 
   return (
-    
-    <View style={styles.container} justifyContent = 'center'>
+
+    <View style={styles.container} justifyContent='center'>
       {/* {selectedModel} */}
       <ImageOutput uri="https://d384u2mq2suvbq.cloudfront.net/public/spree/products/1594/jumbo/Tomato-Leaf-Fragrance-Oil.jpg?1529607054" />
-      
-      
+
+
     </View>
   );
 }
-const MainStack  = createStackNavigator();
-export default function MainStackScreen() { 
+const MainStack = createStackNavigator();
+export default function MainStackScreen() {
   return (
-    <NavigationContainer >
-      <MainStack.Navigator initialRouteName="ImageInput">
-        <MainStack.Screen name="ImageInput" component={AppleInput} options={{headerShown: false}}/>
-        <MainStack.Screen name="ImageOutput" component={ImageOutput} options={{headerShown: false}}/>
-      </MainStack.Navigator>
-    </NavigationContainer>
-    
+    <Provider store={store}>
+      <NavigationContainer > 
+        <MainStack.Navigator initialRouteName="ImageInput">
+          <MainStack.Screen name="ImageInput" component={ImageInput} options={{ headerShown: false }} />
+          <MainStack.Screen name="ImageOutput" component={ImageOutput} options={{ headerShown: false }} />
+          <MainStack.Screen name="History" component={History} options={{ headerShown: false }} />
+        </MainStack.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
 const styles = StyleSheet.create({
