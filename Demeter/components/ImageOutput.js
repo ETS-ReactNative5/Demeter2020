@@ -61,7 +61,7 @@ function ImageOutput(props) {
         <View style={styles.container} justifyContent="flex-start" >
             <StatusBar barStyle='light-content' />
             <View style={styles.loadingContainer}></View>
-            <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center', margin: 5, fontFamily: 'Arial' }}>Tomato Results</Text>
+            <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center', margin: 5, fontFamily: 'Arial' }}>Results</Text>
             <View>
                 <Image source={{ uri: uri }} style={{
                     width: 325,
@@ -79,7 +79,7 @@ function ImageOutput(props) {
             <ScrollView style={{ width: 325, height: 450, marginTop: 10 }}>
                 <View style={{ justifyContent: 'center', width: 325 }}>
 
-                    <Text style={{ fontWeight: "bold", alignItems: 'center', justifyContent: 'center' }}>{"\n"}Disease Prediction: <Text style={{ fontWeight: "bold", color: '#ec2d01' }}>Early Blight{"\n"}</Text></Text>
+            <Text style={{ fontWeight: "bold", alignItems: 'center', justifyContent: 'center' }}>{"\n"}Disease Prediction: <Text style={{ fontWeight: "bold", color: '#ec2d01' }}>{predictions}{"\n"}</Text></Text>
 
 
                     <Text style={{ fontWeight: "bold" }}>Causes: </Text>

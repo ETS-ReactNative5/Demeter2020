@@ -238,7 +238,7 @@ class AppleInput extends React.Component {
           <View style = {styles.imageContainer}>
               <Image 
                 style = {styles.imageContainer}
-                source = {require('../assets/appleCover.jpg')} 
+                source = {require('../assets/AppleCover.jpg')} 
               />
           </View>
           <View>

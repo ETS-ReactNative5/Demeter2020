@@ -25,7 +25,7 @@ class History extends React.Component {
     renderList = () => {
         let items = []
         for (let i in this.props.diagnoses) {
-                items.push(<View>
+                items.push(<View key = {i}>
                 <Image source={{ uri: this.props.diagnoses[i].uri }} style={{
                     width: 325,
                     height: 185,
@@ -37,6 +37,7 @@ class History extends React.Component {
                     // bottom: 10,
                     // right: 10,
                 }} />
+                <Text>Plant: {this.props.diagnoses[i].plant}</Text>
                 <Text>Diagnosis: {this.props.diagnoses[i].diag}</Text>
                 </View>)
         
@@ -50,10 +51,10 @@ class History extends React.Component {
                 {this.renderList()}
 
                 <TouchableOpacity
-                    // style={styles2.imageWrapper}
+                    // style={styles2.ismageWrapper}
                     onPress={() => { this.props.navigation.navigate("ImageInput") }}>
                     {/* was originally styles.choosetext */}
-                    <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"< Back"} </Text>
+                    <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\n< Back"} </Text>
                 </TouchableOpacity>
             </View>
         )

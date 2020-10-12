@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
+
 // import React, { useState, useEffect } from 'react';
 // import { Text, View, TouchableOpacity } from 'react-native';
 // import { Camera } from 'expo-camera';
@@ -66,12 +67,16 @@ import * as Permissions from 'expo-permissions';
 
 import AppleInput from './components/AppleInput'
 import History from './components/History'
+import ChoosePlant from './components/ChoosePlant'
 
 // import CameraRoll from './components/CameraRoll'
 // import { RNCamera } from 'react-native-camera';
 // import { Camera } from 'expo-camera';
+
+
 const initialState = {
-  diagnoses: []
+  diagnoses: [],
+  model: ''
 };
 
 function reducer(state = initialState, action) {
@@ -82,20 +87,26 @@ function reducer(state = initialState, action) {
         ...state,
         diagnoses: [...state.diagnoses, action.diagnosis]
       };
+    case "CHANGEMODEL":
+      return {
+        ...state,
+        model: action.model
+      }
     default:
       return state;
   }
 }
 const store = createStore(reducer);
+
+
 // store.dispatch({type: 'ADDDIAG', uri: 'baller1'})
 // store.dispatch({type: 'ADDDIAG', uri: 'baller2'})
+store.dispatch({ type: 'CHANGEMODEL', model: 'Cherry' })
 
 function App() {
   const [selectedModel, setSelectedModel] = useState(null)
   const [hasPermission, setHasPermission] = useState(null);
   // const [type, setType] = useState(Camera.Constants.Type.back);
-
-
 
   return (
 
@@ -109,15 +120,17 @@ function App() {
 }
 const MainStack = createStackNavigator();
 export default function MainStackScreen() {
+
   return (
     <Provider store={store}>
-      <NavigationContainer > 
-        <MainStack.Navigator initialRouteName="ImageInput">
-          <MainStack.Screen name="ImageInput" component={ImageInput} options={{ headerShown: false }} />
-          <MainStack.Screen name="ImageOutput" component={ImageOutput} options={{ headerShown: false }} />
-          <MainStack.Screen name="History" component={History} options={{ headerShown: false }} />
-        </MainStack.Navigator>
-      </NavigationContainer>
+        <NavigationContainer >
+          <MainStack.Navigator initialRouteName="ImageInput">
+            <MainStack.Screen name="ImageInput" component={ImageInput} options={{ headerShown: false, plant: 'Tomato' }} />
+            <MainStack.Screen name="ImageOutput" component={ImageOutput} options={{ headerShown: false }} />
+            <MainStack.Screen name="History" component={History} options={{ headerShown: false }} />
+            {/* <MainStack.Screen name="ChoosePlant" component={ChoosePlant} options={{ headerShown: false }} /> */}
+          </MainStack.Navigator>
+        </NavigationContainer>
     </Provider>
   )
 }
