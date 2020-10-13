@@ -65,9 +65,7 @@ import CameraRollPicker from 'react-native-camera-roll-picker';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
-import AppleInput from './components/AppleInput'
 import History from './components/History'
-import ChoosePlant from './components/ChoosePlant'
 
 // import CameraRoll from './components/CameraRoll'
 // import { RNCamera } from 'react-native-camera';
