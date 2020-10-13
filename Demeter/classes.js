@@ -23,10 +23,45 @@ const CherryClasses = {
     1: 'Cherry_(including_sour)___healthy',
 }
 
+const StrawberryClasses = {
+    0: 'Strawberry___Leaf_scorch',
+    1: 'Strawberry___healthy'
+}
+
+const GrapeClasses = {
+    0: 'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)',
+    1: 'Grape___Esca_(Black_Measles)',
+    2: 'Grape___healthy',
+    3: 'Grape___Black_rot'
+}
+
+const PeachClasses ={
+    0: 'Peach___Bacterial_spot',
+    1: 'Peach___healthy'
+}
+
+const CornClasses = {
+    0: 'Corn_(maize)___Northern_Leaf_Blight',
+    1: 'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot',
+    2: 'Corn_(maize)___healthy',
+    3: 'Corn_(maize)___Common_rust_'
+}
+
+const PotatoClasses = {
+    0: 'Potato___healthy',
+    1: 'Potato___Late_blight',
+    2: 'Potato___Early_blight'
+}
+
 const AllClasses = {
     'Tomato': TomatoClasses,
     'Apple': AppleClasses,
     'Cherry': CherryClasses,
+    'Strawberry': StrawberryClasses,
+    'Grape': GrapeClasses,
+    'Peach': PeachClasses,
+    'Corn': CornClasses,
+    'Potato': PotatoClasses
 }
 
 export default AllClasses

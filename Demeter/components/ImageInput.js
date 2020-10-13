@@ -99,6 +99,18 @@ class ImageInput extends React.Component {
           modelJson = require('../assets/cherry_model/model.json')
           modelWeights = require('../assets/cherry_model/group1-shard1of1.bin')
           break
+        case 'Corn':
+          modelJson = require('../assets/corn_model/model.json')
+          modelWeights = require('../assets/corn_model/group1-shard1of1.bin')
+        case 'Grape':
+          modelJson = require('../assets/grape_model/model.json')
+          modelWeights = require('../assets/grape_model/group1-shard1of1.bin')
+        case 'Potato':
+          modelJson = require('../assets/potato_model/model.json')
+          modelWeights = require('../assets/potato_model/group1-shard1of1.bin')
+        case 'Strawberry':
+          modelJson = require('../assets/strawberry_model/model.json')
+          modelWeights = require('../assets/strawberry_model/group1-shard1of1.bin')
       }
       
       // the quantization has reduced all the shard weights to one file. Before I think it was like 32 or so different files!
@@ -200,7 +212,9 @@ class ImageInput extends React.Component {
       console.log(this.state.classes[maxIndex])
       this.setState({ predictions: this.state.classes[maxIndex] })
       this.saveToHistory(this.state.uri, this.state.classes[maxIndex])
+
       this.props.navigation.navigate("ImageOutput", { uri: this.state.uri, predictions: this.state.classes[maxIndex] })
+
       this.setState({ showDisplay: true })
       // console.log("pred " + predictions)
       // console.log(predictions)

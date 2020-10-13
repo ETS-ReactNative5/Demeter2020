@@ -44,7 +44,7 @@ const CONFIG = {
 //   9: 'Tomato___healthy'
 // }
 
-class ChoosePlant extends React.Component {
+class PlantInfo extends React.Component {
 
   state = {
     showDisplay: true,
@@ -257,9 +257,8 @@ class ChoosePlant extends React.Component {
         <View style={styles.container} justifyContent='flex-start'>
           <StatusBar barStyle='light-content' />
           <View style={styles.loadingContainer}>
-            <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold', fontFamily: 'Arial' }}>{this.props.model} Diseases</Text>
+            <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold', fontFamily: 'Arial' }}>{this.props.model}</Text>
             <View style={styles.loadingModelContainer}>
-              <Text style={styles.text}>Please wait for the model to load: </Text>
               {isModelReady ? (
                 <Text style={styles.text}>✅</Text>
               ) : (
@@ -268,36 +267,17 @@ class ChoosePlant extends React.Component {
             </View> 
           </View>
 
-          {/* <View style={styles.imageContainer}>
+          <View style={styles.imageContainer}>
             <GetCoverImage plant= {this.props.model}/>
-          </View> */}
+          </View>
           <View>
-            <TouchableOpacity
-              disabled={isModelReady ? (false) : (true)}
-              style={isModelReady ? (styles.imageWrapper) : (styles.imageWrapperDisabled)}
-              onPress={isModelReady ? this.takePhoto : undefined}
-            >
-              {(
-                <Text style={styles.choosetext} >Tap to take a photo</Text>
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              disabled={isModelReady ? (false) : (true)}
-              style={isModelReady ? (styles.imageWrapper) : (styles.imageWrapperDisabled)}
-              onPress={isModelReady ? this.selectImage : undefined}>
-
-              {(
-                <Text style={styles.choosetext}>Tap to upload photo</Text>
-              )}
-            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.imageWrapper}
-              onPress={() => this.props.navigation.navigate("History", {})}
+              onPress={() => this.props.navigation.navigate("ImageInput", {})}
             >
               {(
-                <Text style={styles.choosetext}>View Previous Diagnoses</Text>
+                <Text style={styles.choosetext}>Identify Diseases</Text>
               )}
             </TouchableOpacity>
 
@@ -425,4 +405,188 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(ChoosePlant);
+export default connect(mapStateToProps)(PlantInfo);
+// export default ImageInput
+
+// import React, {useState, useEffect} from 'react';
+// import { StyleSheet, Text, View, Picker, FlatList,Image,Button, TouchableHighlight, ActivityIndicator,
+//   StatusBar,
+//   TouchableOpacity } from 'react-native';
+// import * as ImagePicker from 'expo-image-picker';
+// import * as Permissions from 'expo-permissions';
+// import * as tf from '@tensorflow/tfjs'
+// import { fetch } from '@tensorflow/tfjs-react-native'
+// import * as mobilenet from '@tensorflow-models/mobilenet'
+// import * as jpeg from 'jpeg-js'
+// import Constants from 'expo-constants'
+
+// export default function ImageInput(props) {
+
+//   const [uri, setUri] = useState(null);
+//   const [image, setImage] = useState(null)
+//   const [predictions, setPredictions] = useState(null)
+//   const [isModelReady, setisModelReady] = useState(false)
+//   // state = {
+//   //   isTfReady: false,
+//   //   isModelReady: false,
+//   //   predictions: null,
+//   //   image: null
+//   // }
+
+//   const CONFIG = {
+//     allowsEditing: true,
+//     aspect: [4,3]
+//   };
+
+//   const componentDidMount = async () => {
+//     await tf.ready()
+//     setisModelReady(false)
+//     this.model = await mobilenet.load()
+//     setisModelReady(true)
+//     this.getPermissionAsync()
+//   }
+
+//   const imageToTensor = (rawImageData) => {
+//     const TO_UINT8ARRAY = true
+//     const { width, height, data } = jpeg.decode(rawImageData, TO_UINT8ARRAY)
+//     // Drop the alpha channel info for mobilenet
+//     const buffer = new Uint8Array(width * height * 3)
+//     let offset = 0 // offset into original data
+//     for (let i = 0; i < buffer.length; i += 3) {
+//       buffer[i] = data[offset]
+//       buffer[i + 1] = data[offset + 1]
+//       buffer[i + 2] = data[offset + 2]
+
+//       offset += 4
+//     }
+
+//     return tf.tensor3d(buffer, [height, width, 3])
+//   }
+
+//   const classifyImage = async () => {
+//     try {
+//       const imageAssetPath = Image.resolveAssetSource(image)
+//       const response = await fetch(imageAssetPath.uri, {}, { isBinary: true })
+//       const rawImageData = await response.arrayBuffer()
+//       const imageTensor = this.imageToTensor(rawImageData)
+//       const new_predictions = await this.model.classify(imageTensor)
+//       setPredictions(new_predictions)
+//       console.log(predictions)
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+
+//   const renderPrediction = prediction => {
+//     return (
+//       <Text key={prediction.className}>
+//         {prediction.className}
+//       </Text>
+//     )
+//   }
+//   // ---------------------------------------------------------------
+//   useEffect(() => {
+//     (
+//       async () => {
+//       const { status } = await Permissions.askAsync(Permissions.CAMERA);
+//       // setHasPermission(status === 'granted');
+
+//     }
+//   )();
+//   (
+//     async () => {
+//     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+//     // setHasPermission(status === 'granted');
+
+//   }
+//   )();
+//   }, []);
+
+//   const openCamera = async () => { const resp = await ImagePicker.launchCameraAsync(CONFIG);
+//     if (resp) {
+//       console.log(resp.uri);
+//         setUri(resp.uri);
+//     }
+//   };
+
+//   const openCameraRoll = async () => {
+//     const resp = await ImagePicker.launchImageLibraryAsync(CONFIG);
+//     if (resp){
+//       setUri(resp.uri);
+//     }
+//   };
+
+
+
+
+
+
+
+
+//   //hey
+
+//   return (
+//       <View>
+//         <Image style  = {{width:65, height: 65, margin: 50, padding: 50}} source = {require('../assets/tomatoicon.png')}/>
+//         <Text  style={{textAlignVertical: "center",textAlign: "center",fontWeight:"bold",fontSize:50,}}>Tomato</Text>
+//         <TouchableHighlight
+//             // title="Upload Image"
+//             style = {styles.button}
+//               onPress={openCameraRoll}
+//         >
+//             <Text>Upload Image</Text>
+//         </TouchableHighlight>
+
+//         <TouchableHighlight
+//             // title="Upload Image"
+//             style = {styles.button}
+//               onPress={openCamera}
+//         >
+//             <Text>Take Photo</Text>
+//         </TouchableHighlight>
+//         <Text>{uri}</Text>
+
+//   { uri && <Image style  = {{width:200, height: 200, margin: 50, padding: 50}} source = {{ uri: uri}}/> }
+//         {/* displaying image if uri exists, src weirdly takes an object of the uri*/}
+
+
+//         <View>
+//       {isModelReady && image && (
+//         <Text>
+//           Predictions: {predictions ? '' : 'Predicting...'}
+//         </Text>
+//       )}
+//       {isModelReady &&
+//         predictions &&
+//         predictions.map(p => renderPrediction(p))}
+//       </View>
+
+
+//       </View>
+
+
+//     );
+// }
+
+
+
+
+// const styles = StyleSheet.create({
+//     container: {
+//       flex: 1,
+//       justifyContent: 'center',
+//       paddingHorizontal: 10
+//     },
+//     button: {
+//       alignItems: 'center',
+//       backgroundColor: '#DDDDDD',
+//       padding: 10
+//     },
+//     countContainer: {
+//       alignItems: 'center',
+//       padding: 10
+//     },
+//     countText: {
+//       color: '#FF00FF'
+//     }
+//   })
