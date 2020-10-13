@@ -54,7 +54,7 @@ class History extends React.Component {
                     // style={styles2.ismageWrapper}
                     onPress={() => { this.props.navigation.navigate("ImageInput") }}>
                     {/* was originally styles.choosetext */}
-                    <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\n< Back"} </Text>
+                    <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\nBack"} </Text>
                 </TouchableOpacity>
             </View>
         )

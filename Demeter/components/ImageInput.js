@@ -283,7 +283,7 @@ class ImageInput extends React.Component {
           </View>
 
           <View style={styles.imageContainer}>
-            <GetCoverImage plant= {this.props.model}/>
+            <GetCoverImage plant= {this.props.model} screen = "ImageInput"/>
             {/* <Image
               style={styles.imageContainer}
               source={getCoverImage('Tomato')}
@@ -328,9 +328,9 @@ class ImageInput extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
                     // style={styles2.ismageWrapper}
-                    onPress={() => { this.props.navigation.navigate("Index") }}>
+                    onPress={() => { this.props.navigation.navigate("PlantInfo") }}>
                     {/* was originally styles.choosetext */}
-                    <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\n< Back"} </Text>
+                    <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\nBack"} </Text>
                 </TouchableOpacity>
 
           </View>
@@ -344,6 +344,7 @@ class ImageInput extends React.Component {
             style={styles.loadingImg}
             source={require('../assets/loadingImg.gif')}
           />
+          <Text>Running Disease Analysis :)</Text>
         </View>
       )
     }

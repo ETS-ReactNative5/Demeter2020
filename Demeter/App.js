@@ -67,6 +67,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 import History from './components/History'
+import PlantInfo from './components/PlantInfo'
 
 // import CameraRoll from './components/CameraRoll'
 // import { RNCamera } from 'react-native-camera';
@@ -123,12 +124,12 @@ export default function MainStackScreen() {
   return (
     <Provider store={store}>
         <NavigationContainer >
-          <MainStack.Navigator initialRouteName="Index">
+          <MainStack.Navigator initialRouteName="PlantInfo">
             <MainStack.Screen name="ImageInput" component={ImageInput} options={{ headerShown: false, plant: 'Tomato' }} />
             <MainStack.Screen name="ImageOutput" component={ImageOutput} options={{ headerShown: false }} />
             <MainStack.Screen name="History" component={History} options={{ headerShown: false }} />
             <MainStack.Screen name="Index" component={Index} options={{ headerShown: false}}/>
-
+            <MainStack.Screen name="PlantInfo" component={PlantInfo} options={{ headerShown: false}}/>
           </MainStack.Navigator>
         </NavigationContainer>
     </Provider>

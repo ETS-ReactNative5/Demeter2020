@@ -47,254 +47,47 @@ const CONFIG = {
 class PlantInfo extends React.Component {
 
   state = {
-    showDisplay: true,
-    isTfReady: false,
-    isModelReady: false,
-    predictions: null,
-    image: null,
-    uri: null,
-    classes: {}
-  }
-
-  
-
-
-  async componentDidMount() {
-
-    this.setState({classes: AllClasses[this.props.model]})
-
-    await tf.ready()
-    this.setState({
-      isTfReady: true
-    })
-    // console.log(this.props)
-
-    // this.model = await mobilenet.load() // ORIGINALLY LOADING MOBILE NETS
-    this.model = await this.loadModel(this.props.model)
-    console.log('model after fetch: ' + this.model)
-    // this.loadModel('tfjs_model_to_use')
-    this.setState({ isModelReady: true })
-    // this.camperm()
-    // this.camrollperm()
-    this.getPermissionAsync()
-  }
-
-  loadModel = async (name) => {
-    // model = undefined; 
-    // console.log('weowi;rjg')
-    
-    try {
-      let modelJson
-      let modelWeights
-      switch (name) {
-        case 'Tomato':
-          modelJson = require('../assets/tfjs_model_to_use_trained/model.json')
-          modelWeights = require('../assets/tfjs_model_to_use_trained/group1-shard1of1.bin')
-          break
-        case 'Apple':
-          modelJson = require('../assets/apple_model/model.json')
-          modelWeights = require('../assets/apple_model/group1-shard1of1.bin')
-          break
-        case 'Cherry':
-          modelJson = require('../assets/cherry_model/model.json')
-          modelWeights = require('../assets/cherry_model/group1-shard1of1.bin')
-          break
-      }
-      
-      // the quantization has reduced all the shard weights to one file. Before I think it was like 32 or so different files!
-      console.log('fetching now')
-      return await tf.loadLayersModel(bundleResourceIO(modelJson, modelWeights))//'file://tfjs-models/tfjs_model_to_use/content/tfjs_model_to_use/model.json')//'https://storage.googleapis.com/tfjs-models/tfjs/iris_v1/model.json')
-      // local load look at google's main example - why cant it resolve .bin?
-      // online load, server?
-    }
-    catch (error) {
-      console.log('dfslkmlsemo')
-      console.log(error)
-    }
-    // model = await tf.loadModel('../tfjs-models/tfjs_model_to_use/content/tfjs_model_to_use/model.json')//(`http://localhost:81/tfjs-models/${name}/model.json`); //replace localhost w/ 10.0.0.14
-  }
-
-  // camperm = async() => {
-  //   if (Constants.platform.ios) {
-  //     const { statusCam } = await Permissions.askAsync(Permissions.CAMERA)
-  //     if (statusCam !== 'granted') {
-  //       alert('Sorry, we need camera permissions to make this work!')
-  //     }
-  //   }
-  // }
-
-  // camrollperm = async () => {
-
-  //     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-  //     if (status !== 'granted') {
-  //       alert('Sorry, we need camera roll permissions to make this work!')
-  //     }
-  // }
-
-  getPermissionAsync = async () => {
-    const { status } = await Permissions.askAsync(
-      Permissions.CAMERA_ROLL,
-      Permissions.CAMERA
-    )
-    if (status !== 'granted') {
-      alert('Sorry, we need camera roll permissions to make this work!')
-    }
-  }
-
-  imageToTensor(rawImageData) {
-    const TO_UINT8ARRAY = true
-    const { width, height, data } = jpeg.decode(rawImageData, TO_UINT8ARRAY)
-
-    // Drop the alpha channel info for mobilenet
-    const buffer = new Uint8Array(width * height * 3)
-    let offset = 0 // offset into original data
-    for (let i = 0; i < buffer.length; i += 1) {
-      buffer[i] = data[offset]
-      buffer[i + 1] = data[offset + 1]
-      buffer[i + 2] = data[offset + 2]
-
-      offset += 1
-    }
-
-    const tensa = tf.tensor4d(buffer, [1, height, width, 3])
-    const tensb = tf.image.resizeNearestNeighbor(tensa, [128, 128])
-    console.log(tensb.shape)
-    return tensb
-
-  }
-
-  classifyImage = async () => {
-    try {
-      this.setState({ showDisplay: false })
-      const imageAssetPath = Image.resolveAssetSource(this.state.image)
-      const response = await fetch(imageAssetPath.uri, {}, { isBinary: true })
-      const rawImageData = await response.arrayBuffer()
-      const imageTensor = this.imageToTensor(rawImageData)
-      // const imageTensor = decodeJpeg(rawImageData);
-      // const predictions = (await this.model.predict(imageTensor))[0];
-      const prepred = await this.model.predict(imageTensor).data()
-      const arr = Array.from(prepred)
-      console.log(arr[0])
-      var max = arr[0];
-      var maxIndex = 0;
-
-      for (var i = 1; i < arr.length; i++) {
-        if (arr[i] > max) {
-          maxIndex = i;
-          max = arr[i];
-        }
-      }
-
-
-      // let top3 = arr
-      //   .map(function (p, i) {
-      //       return {
-      //           probability: p,
-      //           className: IMAGENET_CLASSES[i]
-      //       };
-      //   }).sort(function (a, b) {
-      //       return b.probability - a.probability;
-      //   }).slice(0, 3);
-
-      console.log('max: ' + maxIndex)
-      console.log(this.state.classes[maxIndex])
-      this.setState({ predictions: this.state.classes[maxIndex] })
-      this.saveToHistory(this.state.uri, this.state.classes[maxIndex])
-      this.props.navigation.navigate("ImageOutput", { uri: this.state.uri, predictions: this.state.classes[maxIndex] })
-      this.setState({ showDisplay: true })
-      // console.log("pred " + predictions)
-      // console.log(predictions)
-
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  saveToHistory = (uri, diag) => {
-    this.props.dispatch({ type: 'ADDDIAG', diagnosis: { uri: uri, diag: diag, plant: this.props.model } });
-  };
-
-  // }
-  selectImage = async () => {
-    let resp = await ImagePicker.launchImageLibraryAsync(
-      {
-        allowsEditing: true,
-        aspect: [1, 1]
-      }
-    )
-    if (resp) {
-      const source = { uri: resp.uri }
-      this.setState({ image: source, uri: resp.uri });
-      this.classifyImage()
-    }
   }
 
 
-  takePhoto = async () => {
-    const resp = await ImagePicker.launchCameraAsync(CONFIG);
-    if (resp) {
-      const source = { uri: resp.uri }
-      this.setState({ image: source, uri: resp.uri })
-      this.classifyImage()
-    }
-  };
 
-  renderPrediction = prediction => {
-    // console.log(prediction)
-    return (
-      <Text key={prediction.className} style={styles.text}>
-        {prediction.className}
-      </Text>
-    )
-  }
 
   render() {
-    const { isTfReady, isModelReady, predictions, image, uri } = this.state
-    
 
-    if (this.state.showDisplay) {
-      return (
-        <View style={styles.container} justifyContent='flex-start'>
-          <StatusBar barStyle='light-content' />
-          <View style={styles.loadingContainer}>
-            <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold',  }}>{this.props.model}</Text>
-            <View style={styles.loadingModelContainer}>
-              {isModelReady ? (
-                <Text style={styles.text}>✅</Text>
-              ) : (
-                  <ActivityIndicator size='small' />
-                )}
-            </View> 
-          </View>
-
-          <View style={styles.imageContainer}>
-            <GetCoverImage plant= {this.props.model}/>
-          </View>
-          <View>
-
-            <TouchableOpacity
-              style={styles.imageWrapper}
-              onPress={() => this.props.navigation.navigate("ImageInput", {})}
-            >
-              {(
-                <Text style={styles.choosetext}>Identify Diseases</Text>
-              )}
-            </TouchableOpacity>
-
-          </View>
-          {/* <Text>{predictions}</Text>       */}
+    return (
+      <View style={styles.container} justifyContent='flex-start'>
+        <StatusBar barStyle='light-content' />
+        <View style={styles.loadingContainer}>
+          <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold', }}>{this.props.model}</Text>
         </View>
-      )
-    } else {
-      return (
-        <View style={styles.container} justifyContent='center'>
-          <Image
-            style={styles.loadingImg}
-            source={require('../assets/loadingImg.gif')}
-          />
+
+        <View style={styles.imageContainer}>
+          <GetCoverImage plant={this.props.model} screen="PlantInfo" />
         </View>
-      )
-    }
+        <View>
+
+          <TouchableOpacity
+            style={styles.imageWrapper}
+            onPress={() => this.props.navigation.navigate("ImageInput", {})}
+          >
+            {(
+              <Text style={styles.choosetext}>Identify Diseases</Text>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            // style={styles2.ismageWrapper}
+            onPress={() => { this.props.navigation.navigate("Index") }}>
+            {/* was originally styles.choosetext */}
+            <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\nBack"} </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* <Text>{predictions}</Text>       */}
+
+      </View>
+
+    )
+
 
 
   }
@@ -324,7 +117,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     top: 20,
     marginBottom: 40,
-    
+
   },
   choosetext: {
     fontWeight: "bold",

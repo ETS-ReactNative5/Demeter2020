@@ -46,12 +46,10 @@ class Index extends React.Component {
    
   }
 
-
-
-  
- 
-
-
+  navigateToPlantInfo = plant => {
+    this.props.dispatch({type: "CHANGEMODEL", model: plant})
+    this.props.navigation.navigate('PlantInfo')
+  }
 
   render() {
 
@@ -80,35 +78,44 @@ class Index extends React.Component {
         <View style={{flexDirection:"column", alignItems:"center"}}>
           <TouchableOpacity
                 style={styles.imageWrapper}
-                onPress={() => {this.props.navigation.navigate('ImageInput')}}
+                onPress={() => {this.navigateToPlantInfo('Tomato')}}
               >
 
-                {(
-                  <Text>placeholder</Text>
-                )}
+                
+                  {/* <Text>placeholder</Text> */}
+                  <GetCoverImage plant = "Tomato" screen = "Index"/>
+                
               </TouchableOpacity>
               <Text style={styles.choosetext} >Tomato</Text>
         </View>
             
-            <TouchableOpacity
-              style={styles.imageWrapper}
-              onPress={() => {this.props.navigation.navigate('ImageInput')}}
-            >
+        <View style={{flexDirection:"column", alignItems:"center"}}>
+          <TouchableOpacity
+                style={styles.imageWrapper}
+                onPress={() => {this.navigateToPlantInfo('Apple')}}
+              >
 
-              {(
-                <Text style={styles.choosetext} >Apple</Text>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.imageWrapper}
-              onPress={() => {this.props.navigation.navigate('ImageInput')}}
-            >
-
-              {(
-                <Text style={styles.choosetext} >Strawberry</Text>
-              )}
-            </TouchableOpacity>
+                
+                  {/* <Text>placeholder</Text> */}
+                  <GetCoverImage plant = "Apple" screen = "Index"/>
+                
+              </TouchableOpacity>
+              <Text style={styles.choosetext} >Apple</Text>
+        </View>
             
+        <View style={{flexDirection:"column", alignItems:"center"}}>
+          <TouchableOpacity
+                style={styles.imageWrapper}
+                onPress={() => {this.navigateToPlantInfo('Strawberry')}}
+              >
+
+                
+                  {/* <Text>placeholder</Text> */}
+                  <GetCoverImage plant = "Strawberry" screen = "Index"/>
+                
+              </TouchableOpacity>
+              <Text style={styles.choosetext} >Strawberry</Text>
+        </View>
 
 
           </View>
@@ -117,34 +124,47 @@ class Index extends React.Component {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
       }}>
-            <TouchableOpacity
-              style={styles.imageWrapper}
-              onPress={() => {this.props.navigation.navigate('ImageInput')}}
-            >
+        <View style={{flexDirection:"column", alignItems:"center"}}>
+          <TouchableOpacity
+                style={styles.imageWrapper}
+                onPress={() => {this.navigateToPlantInfo('Corn')}}
+              >
 
-              {(
-                <Text style={styles.choosetext} >Corn</Text>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.imageWrapper}
-              onPress={() => {this.props.navigation.navigate('ImageInput')}}
-            >
-
-              {(
-                <Text style={styles.choosetext} >Potato</Text>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.imageWrapper}
-              onPress={() => {this.props.navigation.navigate('ImageInput')}}
-            >
-
-              {(
-                <Text style={styles.choosetext} >Grape</Text>
-              )}
-            </TouchableOpacity>
+                
+                  {/* <Text>placeholder</Text> */}
+                  <GetCoverImage plant = "Corn" screen = "Index"/>
+                
+              </TouchableOpacity>
+              <Text style={styles.choosetext} >Corn</Text>
+        </View>
             
+        <View style={{flexDirection:"column", alignItems:"center"}}>
+          <TouchableOpacity
+                style={styles.imageWrapper}
+                onPress={() => {this.navigateToPlantInfo('Potato')}}
+              >
+
+                
+                  {/* <Text>placeholder</Text> */}
+                  <GetCoverImage plant = "Potato" screen = "Index"/>
+                
+              </TouchableOpacity>
+              <Text style={styles.choosetext} >Potato</Text>
+        </View>
+            
+        <View style={{flexDirection:"column", alignItems:"center"}}>
+          <TouchableOpacity
+                style={styles.imageWrapper}
+                onPress={() => {this.navigateToPlantInfo('Grape')}}
+              >
+
+                
+                  {/* <Text>placeholder</Text> */}
+                  <GetCoverImage plant = "Grape" screen = "Index"/>
+                
+              </TouchableOpacity>
+              <Text style={styles.choosetext} >Grape</Text>
+        </View>
 
 
           </View>
@@ -153,34 +173,47 @@ class Index extends React.Component {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
       }}>
-            <TouchableOpacity
-              style={styles.imageWrapper}
-              onPress={() => {this.props.navigation.navigate('ImageInput')}}
-            >
+        <View style={{flexDirection:"column", alignItems:"center"}}>
+          <TouchableOpacity
+                style={styles.imageWrapper}
+                onPress={() => {this.navigateToPlantInfo('Cherry')}}
+              >
 
-              {(
-                <Text style={styles.choosetext} >Cherry</Text>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.imageWrapper}
-              onPress={() => {this.props.navigation.navigate('ImageInput')}}
-            >
-
-              {(
-                <Text style={styles.choosetext} >Peach</Text>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.imageWrapper}
-              onPress={() => {this.props.navigation.navigate('ImageInput')}}
-            >
-
-              {(
-                <Text style={styles.choosetext} >Bell Pepper</Text>
-              )}
-            </TouchableOpacity>
+                
+                  {/* <Text>placeholder</Text> */}
+                  <GetCoverImage plant = "Cherry" screen = "Index"/>
+                
+              </TouchableOpacity>
+              <Text style={styles.choosetext} >Cherry</Text>
+        </View>
             
+        <View style={{flexDirection:"column", alignItems:"center"}}>
+          <TouchableOpacity
+                style={styles.imageWrapper}
+                onPress={() => {this.navigateToPlantInfo('Peach')}}
+              >
+
+                
+                  {/* <Text>placeholder</Text> */}
+                  <GetCoverImage plant = "Peach" screen = "Index"/>
+                
+              </TouchableOpacity>
+              <Text style={styles.choosetext} >Peach</Text>
+        </View>
+            
+        <View style={{flexDirection:"column", alignItems:"center"}}>
+          <TouchableOpacity
+                style={styles.imageWrapper}
+                onPress={() => {this.navigateToPlantInfo('PepperBell')}}
+              >
+
+                
+                  {/* <Text>placeholder</Text> */}
+                  <GetCoverImage plant = "PepperBell" screen = "Index"/>
+                
+              </TouchableOpacity>
+              <Text style={styles.choosetext} >Bell Pepper</Text>
+        </View>
 
 
           </View>
@@ -241,6 +274,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 3,
+    borderColor: 'green'
   },
   imageWrapperDisabled: {
     width: 250,

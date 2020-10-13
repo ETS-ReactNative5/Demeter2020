@@ -110,7 +110,7 @@ function ImageOutput(props) {
                     // style={styles2.imageWrapper}
                     onPress={() => { navigation.navigate("ImageInput") }}>
                     {/* was originally styles.choosetext */}
-                    <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"< Back"} </Text>
+                    <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"Back"} </Text>
                 </TouchableOpacity>
             </View>
         </View>
