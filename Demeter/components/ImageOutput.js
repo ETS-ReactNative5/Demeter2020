@@ -61,7 +61,7 @@ function ImageOutput(props) {
         <View style={styles.container} justifyContent="flex-start" >
             <StatusBar barStyle='light-content' />
             <View style={styles.loadingContainer}></View>
-            <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center', margin: 5, fontFamily: 'Arial' }}>Results</Text>
+            <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center', margin: 5,  }}>Results</Text>
             <View>
                 <Image source={{ uri: uri }} style={{
                     width: 325,

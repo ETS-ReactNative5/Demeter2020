@@ -62,7 +62,7 @@ class ImageInput extends React.Component {
   async componentDidMount() {
 
     this.setState({classes: AllClasses[this.props.model]})
-
+    console.log(this.props.model)
     await tf.ready()
     this.setState({
       isTfReady: true
@@ -271,7 +271,7 @@ class ImageInput extends React.Component {
         <View style={styles.container} justifyContent='flex-start'>
           <StatusBar barStyle='light-content' />
           <View style={styles.loadingContainer}>
-            <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold', fontFamily: 'Arial' }}>{this.props.model} Diseases</Text>
+            <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold',  }}>{this.props.model} Disease Detection</Text>
             <View style={styles.loadingModelContainer}>
               <Text style={styles.text}>Please wait for the model to load: </Text>
               {isModelReady ? (
@@ -326,6 +326,12 @@ class ImageInput extends React.Component {
                 <Text style={styles.choosetext}>View Previous Diagnoses</Text>
               )}
             </TouchableOpacity>
+            <TouchableOpacity
+                    // style={styles2.ismageWrapper}
+                    onPress={() => { this.props.navigation.navigate("Index") }}>
+                    {/* was originally styles.choosetext */}
+                    <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\n< Back"} </Text>
+                </TouchableOpacity>
 
           </View>
           {/* <Text>{predictions}</Text>       */}
@@ -370,7 +376,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     top: 20,
     marginBottom: 40,
-    fontFamily: 'Arial',
+    
   },
   choosetext: {
     fontWeight: "bold",

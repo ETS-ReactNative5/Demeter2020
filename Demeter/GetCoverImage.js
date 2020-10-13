@@ -21,6 +21,9 @@ let GetCoverImage = (props) => {
         case ('Cherry'):
             image = require('./assets/CherryCover.jpg')
             break
+        case ('logo'):
+            image = require('./assets/demeterlogo.jpg')
+            break
     }
     return (<Image
         style={

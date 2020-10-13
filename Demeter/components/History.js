@@ -98,7 +98,7 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         top: 20,
         marginBottom: 40,
-        fontFamily: 'Arial',
+        
     },
     choosetext: {
         fontWeight: "bold",

@@ -257,7 +257,7 @@ class PlantInfo extends React.Component {
         <View style={styles.container} justifyContent='flex-start'>
           <StatusBar barStyle='light-content' />
           <View style={styles.loadingContainer}>
-            <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold', fontFamily: 'Arial' }}>{this.props.model}</Text>
+            <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold',  }}>{this.props.model}</Text>
             <View style={styles.loadingModelContainer}>
               {isModelReady ? (
                 <Text style={styles.text}>✅</Text>
@@ -324,7 +324,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     top: 20,
     marginBottom: 40,
-    fontFamily: 'Arial',
+    
   },
   choosetext: {
     fontWeight: "bold",

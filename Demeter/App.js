@@ -60,6 +60,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import SelectScreen from './components/SelectScreen'
 import ImageInput from './components/ImageInput'
+import Index from './components/Index'
 import ImageOutput from './components/ImageOutput'
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import * as ImagePicker from 'expo-image-picker';
@@ -95,11 +96,11 @@ function reducer(state = initialState, action) {
   }
 }
 const store = createStore(reducer);
-
+ 
 
 // store.dispatch({type: 'ADDDIAG', uri: 'baller1'})
 // store.dispatch({type: 'ADDDIAG', uri: 'baller2'})
-store.dispatch({ type: 'CHANGEMODEL', model: 'Cherry' })
+store.dispatch({ type: 'CHANGEMODEL', model: 'Tomato' })
 
 function App() {
   const [selectedModel, setSelectedModel] = useState(null)
@@ -122,11 +123,12 @@ export default function MainStackScreen() {
   return (
     <Provider store={store}>
         <NavigationContainer >
-          <MainStack.Navigator initialRouteName="ImageInput">
+          <MainStack.Navigator initialRouteName="Index">
             <MainStack.Screen name="ImageInput" component={ImageInput} options={{ headerShown: false, plant: 'Tomato' }} />
             <MainStack.Screen name="ImageOutput" component={ImageOutput} options={{ headerShown: false }} />
             <MainStack.Screen name="History" component={History} options={{ headerShown: false }} />
-            {/* <MainStack.Screen name="ChoosePlant" component={ChoosePlant} options={{ headerShown: false }} /> */}
+            <MainStack.Screen name="Index" component={Index} options={{ headerShown: false}}/>
+
           </MainStack.Navigator>
         </NavigationContainer>
     </Provider>
