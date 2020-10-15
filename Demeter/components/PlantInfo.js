@@ -23,6 +23,7 @@ import axios from 'axios'
 import { connect } from "react-redux";
 
 import GetCoverImage from "../GetCoverImage"
+import Descriptions from "../Descriptions"
 import AllClasses from "../classes.js"
 
 
@@ -55,34 +56,41 @@ class PlantInfo extends React.Component {
   render() {
 
     return (
-      <View style={styles.container} justifyContent='flex-start'>
-        <StatusBar barStyle='light-content' />
-        <View style={styles.loadingContainer}>
-          <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold', }}>{this.props.model}</Text>
-        </View>
-
+      <View style={styles.container}>
         <View style={styles.imageContainer}>
           <GetCoverImage plant={this.props.model} screen="PlantInfo" />
         </View>
-        <View>
+        <TouchableOpacity
+            // style={styles2.ismageWrapper}
+            style = {{left: 25}}
+            onPress={() => { this.props.navigation.navigate("Index") }}>
+            {/* was originally styles.choosetext */}
+            <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\nBack"} </Text>
+          </TouchableOpacity>
+        <View style = {{left: 15}}>
+    <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold', }}>{this.props.model} Plant {'\n'}</Text>
+        </View>
+        
+
+
+
+
+        <View >
+          <View style ={{left: 15}}>
+            <Descriptions plant={this.props.model} />
+            </View>
 
           <TouchableOpacity
             style={styles.imageWrapper}
             onPress={() => this.props.navigation.navigate("ImageInput", {})}
           >
-            {(
               <Text style={styles.choosetext}>Identify Diseases</Text>
-            )}
           </TouchableOpacity>
-          <TouchableOpacity
-            // style={styles2.ismageWrapper}
-            onPress={() => { this.props.navigation.navigate("Index") }}>
-            {/* was originally styles.choosetext */}
-            <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\nBack"} </Text>
-          </TouchableOpacity>
+          
         </View>
 
-        {/* <Text>{predictions}</Text>       */}
+
+
 
       </View>
 
@@ -98,26 +106,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 65,
     // backgroundColor: '#171f24',
-    alignItems: 'center',
-    justifyContent: 'center'
+    // alignItems: 'center',
+    justifyContent: 'flex-start',
+
   },
   loadingContainer: {
     marginTop: 80,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  loadingImg: {
-    height: 200,
-    width: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    // color: '#ffffff',
-    fontSize: 20,
-    top: 20,
-    marginBottom: 40,
-
+    // justifyContent: 'left',
+    // alignItems: 'left'
   },
   choosetext: {
     fontWeight: "bold",
@@ -129,7 +125,7 @@ export const styles = StyleSheet.create({
     marginTop: 10
   },
   imageWrapper: {
-    width: 325,
+    // width: 325,
     height: 80,
     padding: 10,
     borderRadius: 10,
@@ -141,52 +137,19 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  imageWrapperDisabled: {
-    width: 250,
-    height: 60,
-    padding: 10,
-    borderRadius: 5,
-    // borderStyle: 'dashed',
-    marginTop: 20,
-    backgroundColor: '#949399',
-    marginBottom: 10,
-    position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   imageContainer: {
-    width: 325,
-    height: 325,
-    position: 'relative',
-    marginTop: 10,
-    marginBottom: 15,
+    // flex: 1,
+    // width: 800,
+    // resizeMode: 'stretch',
+    // height: 325,
+    // position: 'relative',
+    // marginTop: 10,
+    // marginBottom: 15,
     // top: 10,
     // left: 10,
     // bottom: 10,
     // right: 10,
   },
-  predictionWrapper: {
-    height: 100,
-    width: '100%',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  // transparentText: {
-  //   color: '#ffffff',
-  //   opacity: 0.7
-  // },
-  footer: {
-    marginTop: 40
-  },
-  poweredBy: {
-    fontSize: 20,
-    color: '#e69e34',
-    marginBottom: 6
-  },
-  tfLogo: {
-    width: 125,
-    height: 70
-  }
 })
 
 function mapStateToProps(state) {

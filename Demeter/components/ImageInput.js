@@ -344,7 +344,7 @@ class ImageInput extends React.Component {
             style={styles.loadingImg}
             source={require('../assets/loadingImg.gif')}
           />
-          <Text>Running Disease Analysis :)</Text>
+          <Text style = {{fontSize: 20}}>Running Disease Analysis :)</Text>
         </View>
       )
     }
@@ -402,8 +402,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   imageWrapperDisabled: {
-    width: 250,
-    height: 60,
+    width: 325,
+    height: 80,
     padding: 10,
     borderRadius: 5,
     // borderStyle: 'dashed',

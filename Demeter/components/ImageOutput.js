@@ -65,7 +65,7 @@ function ImageOutput(props) {
             <View>
                 <Image source={{ uri: uri }} style={{
                     width: 325,
-                    height: 185,
+                    height: 325,
                     position: 'relative',
                     marginTop: 10,
                     marginBottom: 15,

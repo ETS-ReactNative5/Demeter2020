@@ -68,10 +68,9 @@ export default GetCoverImage
 
 export const styles = StyleSheet.create({
     PlantInfoScreen: {
-        width: 325,
+        width: '100%',
         height: 325,
         position: 'relative',
-        marginTop: 10,
         marginBottom: 15,
         // left: 10,
         // bottom: 10,

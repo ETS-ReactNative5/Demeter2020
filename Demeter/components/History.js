@@ -25,10 +25,11 @@ class History extends React.Component {
     renderList = () => {
         let items = []
         for (let i in this.props.diagnoses) {
-                items.push(<View key = {i}>
+                items.push(
+            <View key = {i} styles = {styles.container}>
                 <Image source={{ uri: this.props.diagnoses[i].uri }} style={{
                     width: 325,
-                    height: 185,
+                    height: 325,
                     position: 'relative',
                     marginTop: 10,
                     marginBottom: 15,
@@ -37,8 +38,10 @@ class History extends React.Component {
                     // bottom: 10,
                     // right: 10,
                 }} />
-                <Text>Plant: {this.props.diagnoses[i].plant}</Text>
-                <Text>Diagnosis: {this.props.diagnoses[i].diag}</Text>
+                <Text>
+                <Text style = {{fontWeight: "bold"}}>Plant:</Text><Text>{this.props.diagnoses[i].plant}{'\n'}</Text>
+                <Text style = {{fontWeight: "bold"}}>Diagnosis:</Text><Text>{this.props.diagnoses[i].diag}</Text>
+                </Text>
                 </View>)
         
         }
@@ -47,9 +50,10 @@ class History extends React.Component {
 
     render() {
         return (
-            <View >
+            <View style = {styles.container}>
+                <Text style={{ fontSize: 40, margin: 30, fontWeight: 'bold',  }}>Previous Diagnoses</Text>
                 {this.renderList()}
-
+                
                 <TouchableOpacity
                     // style={styles2.ismageWrapper}
                     onPress={() => { this.props.navigation.navigate("ImageInput") }}>
@@ -80,7 +84,9 @@ export const styles = StyleSheet.create({
         marginBottom: 65,
         // backgroundColor: '#171f24',
         alignItems: 'center',
-        justifyContent: 'center'
+        // justifyContent: 'center',
+        flexDirection: 'column',
+        flex: 1,
     },
     loadingContainer: {
         marginTop: 80,
