@@ -64,8 +64,8 @@ function ImageOutput(props) {
             <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center', margin: 5,  }}>Results</Text>
             <View>
                 <Image source={{ uri: uri }} style={{
-                    width: 325,
-                    height: 325,
+                    width: 400,
+                    height: 400,
                     position: 'relative',
                     marginTop: 10,
                     marginBottom: 15,
@@ -76,36 +76,13 @@ function ImageOutput(props) {
                 }} />
             </View>
             {/* <View>{predictions.map(p => renderPrediction(p))}</View> */}
-            <ScrollView style={{ width: 325, height: 450, marginTop: 10 }}>
-                <View style={{ justifyContent: 'center', width: 325 }}>
-
+            <ScrollView style={{ width: 400, height: 450, marginTop: 10 }}>
             <Text style={{ fontWeight: "bold", alignItems: 'center', justifyContent: 'center' }}>{"\n"}Disease Prediction: <Text style={{ fontWeight: "bold", color: '#ec2d01' }}>{predictions}{"\n"}</Text></Text>
 
 
-                    <Text style={{ fontWeight: "bold" }}>Causes: </Text>
-                    <Text><Text style={{ fontStyle: "italic" }}>{`\u2022 Alternaria Solani`}</Text> fungus{"\n"}</Text>
-                    {/* {causes.map((cause) => {`\u2022 ${cause} `})} */}
-
-
-                    <Text style={{ fontWeight: "bold" }}>Symptoms: </Text>
-                    <Text>
-
-                        {`\u2022 Black or brown spots (usually 1 cm in diameter) `}{"\n"}
-                        {`\u2022 Leaf spots are leathery and are often in concentric rings `}{"\n"}
-                        {`\u2022 Fruit spots are sunken and dry and also have a concentric pattern `}{"\n"}
-                        {/* {symptoms.map((symptom) => {`\u2022 ${symptom} `})} */}
-                    </Text>
-                    <Text style={{ fontWeight: "bold" }}>Cures: </Text>
-                    <Text>
-                        {`\u2022 Avoid overhead irrigation ` + "\n"}
-                        {`\u2022 Crop rotation is useful for infested gardens `}{"\n"}
-                        {`\u2022 Copper fungicides applied at the first sign of infestation and repeated every 7 to 10 days may provide control `}{"\n"}
-                        {/* {cures.map((cure) => {`\u2022 ${cure} `})} */}
-                    </Text>
-                    <Text style={{ color: 'blue', textDecorationLine: 'underline' }} onPress={() => Linking.openURL('http://ipm.ucanr.edu/PMG/GARDEN/VEGES/DISEASES/tomearlyblight.html')} >Click to visit the UCANR website for more information</Text>
-                </View>
             </ScrollView>
-            <View style={{ marginTop: 13, alignItems: 'left', justifyContent: 'left', textAlign: 'justify', right: 115 }}>
+
+            <View style={{ marginTop: 13, alignItems: 'left', justifyContent: 'left', textAlign: 'justify', right: 150}}>
                 <TouchableOpacity
                     // style={styles2.imageWrapper}
                     onPress={() => { navigation.navigate("ImageInput") }}>
@@ -119,3 +96,31 @@ function ImageOutput(props) {
 }
 
 export default ImageOutput
+
+
+{/* <View style={{ justifyContent: 'center', width: 400 }}>
+
+
+
+        <Text style={{ fontWeight: "bold" }}>Causes: </Text>
+        <Text><Text style={{ fontStyle: "italic" }}>{`\u2022 Alternaria Solani`}</Text> fungus{"\n"}</Text>
+        {/* {causes.map((cause) => {`\u2022 ${cause} `})} */}
+
+
+    //     <Text style={{ fontWeight: "bold" }}>Symptoms: </Text>
+    //     <Text>
+
+    //         {`\u2022 Black or brown spots (usually 1 cm in diameter) `}{"\n"}
+    //         {`\u2022 Leaf spots are leathery and are often in concentric rings `}{"\n"}
+    //         {`\u2022 Fruit spots are sunken and dry and also have a concentric pattern `}{"\n"}
+    //         {/* {symptoms.map((symptom) => {`\u2022 ${symptom} `})} */}
+    //     </Text>
+    //     <Text style={{ fontWeight: "bold" }}>Cures: </Text>
+    //     <Text>
+    //         {`\u2022 Avoid overhead irrigation ` + "\n"}
+    //         {`\u2022 Crop rotation is useful for infested gardens `}{"\n"}
+    //         {`\u2022 Copper fungicides applied at the first sign of infestation and repeated every 7 to 10 days may provide control `}{"\n"}
+    //         {/* {cures.map((cure) => {`\u2022 ${cure} `})} */}
+    //     </Text>
+    //     <Text style={{ color: 'blue', textDecorationLine: 'underline' }} onPress={() => Linking.openURL('http://ipm.ucanr.edu/PMG/GARDEN/VEGES/DISEASES/tomearlyblight.html')} >Click to visit the UCANR website for more information</Text>
+    // </View> */}

@@ -268,8 +268,7 @@ class ImageInput extends React.Component {
 
     if (this.state.showDisplay) {
       return (
-        <View style={styles.container} justifyContent='flex-start'>
-          <StatusBar barStyle='light-content' />
+        <View style={styles.container}>
           <View style={styles.loadingContainer}>
             <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold',  }}>{this.props.model} Disease Detection</Text>
             <View style={styles.loadingModelContainer}>
@@ -284,27 +283,16 @@ class ImageInput extends React.Component {
 
           <View style={styles.imageContainer}>
             <GetCoverImage plant= {this.props.model} screen = "ImageInput"/>
-            {/* <Image
-              style={styles.imageContainer}
-              source={getCoverImage('Tomato')}
-            /> */}
           </View>
           <View>
             <TouchableOpacity
               disabled={isModelReady ? (false) : (true)}
               style={isModelReady ? (styles.imageWrapper) : (styles.imageWrapperDisabled)}
               onPress={isModelReady ? this.takePhoto : undefined}
-            // onPress={()=>{
-            //   axios.post('http://192.168.0.21:4000/create-account').then(res => {
-            //     console.log(res)
-            //   }).catch((err)=>{
-            //     console.log(err)
-            //   })
-            // }}
             >
 
               {(
-                <Text style={styles.choosetext} >Tap to take a photo</Text>
+                <Text style={styles.choosetext} >Take a photo</Text>
               )}
             </TouchableOpacity>
 
@@ -314,17 +302,21 @@ class ImageInput extends React.Component {
               onPress={isModelReady ? this.selectImage : undefined}>
 
               {(
-                <Text style={styles.choosetext}>Tap to upload photo</Text>
+                <Text style={styles.choosetext}>Upload photo</Text>
               )}
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.imageWrapper}
-              onPress={() => this.props.navigation.navigate("History", {})}
+              onPress={() => {
+                console.log('Going to history for ' + this.props.model)
+                this.props.navigation.navigate("History", {plant: this.props.model})
+              }
+                
+                
+              }
             >
-              {(
-                <Text style={styles.choosetext}>View Previous Diagnoses</Text>
-              )}
+                <Text style={styles.choosetext}>View previous {this.props.model} diagnoses</Text>
             </TouchableOpacity>
             <TouchableOpacity
                     // style={styles2.ismageWrapper}
@@ -389,12 +381,12 @@ export const styles = StyleSheet.create({
     marginTop: 10
   },
   imageWrapper: {
-    width: 325,
+    width: 400,
     height: 80,
     padding: 10,
     borderRadius: 10,
     // borderStyle: 'dashed',
-    marginTop: 40,
+    marginTop: 20,
     backgroundColor: '#009900',
     marginBottom: 10,
     position: 'relative',
@@ -402,7 +394,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   imageWrapperDisabled: {
-    width: 325,
+    width: 400,
     height: 80,
     padding: 10,
     borderRadius: 5,
@@ -415,11 +407,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   imageContainer: {
-    width: 325,
-    height: 325,
+    width: 400,
+    height: 400,
+
     position: 'relative',
     marginTop: 10,
-    marginBottom: 15,
+    // marginBottom: 15,
     // top: 10,
     // left: 10,
     // bottom: 10,

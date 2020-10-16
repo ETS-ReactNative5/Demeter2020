@@ -56,7 +56,7 @@ let GetCoverImage = (props) => {
             />)
         case ('ImageInput'):
             return (<Image
-                style={styles.PlantInfoScreen}
+                style={styles.ImageInput}
                 source={image}
             />)
     }
@@ -72,6 +72,15 @@ export const styles = StyleSheet.create({
         height: 325,
         position: 'relative',
         marginBottom: 15,
+        // left: 10,
+        // bottom: 10,
+        // right: 10,
+    },
+    ImageInput: {
+        width: 375,
+        height: 375,
+        position: 'relative',
+        alignSelf: 'center'
         // left: 10,
         // bottom: 10,
         // right: 10,

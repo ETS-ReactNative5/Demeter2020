@@ -102,16 +102,16 @@ const store = createStore(reducer);
 // store.dispatch({type: 'ADDDIAG', uri: 'baller1'})
 // store.dispatch({type: 'ADDDIAG', uri: 'baller2'})
 // store.dispatch({ type: 'CHANGEMODEL', model: 'Tomato' })
-store.dispatch({
-  type: "ADDDIAG",
-  diagnosis:{
+// store.dispatch({
+//   type: "ADDDIAG",
+//   diagnosis:{
     
-      diag: "Tomato___Bacterial_spot",
-      plant: "Tomato",
-      uri: "file:///var/mobile/Containers/Data/Application/6E6549ED-19F3-4229-B02F-D67B0F031606/Library/Caches/ExponentExperienceData/%2540anonymous%252FDemeter-cb40d35b-46c2-42bc-9ce6-999b3856a6bb/ImagePicker/D6ADD56B-0336-4989-8F01-06AE1B560B8F.jpg",
+//       diag: "Tomato___Bacterial_spot",
+//       plant: "Tomato",
+//       uri: "file:///var/mobile/Containers/Data/Application/6E6549ED-19F3-4229-B02F-D67B0F031606/Library/Caches/ExponentExperienceData/%2540anonymous%252FDemeter-cb40d35b-46c2-42bc-9ce6-999b3856a6bb/ImagePicker/D6ADD56B-0336-4989-8F01-06AE1B560B8F.jpg",
     
-  }
-})
+//   }
+// })
 
 function App() {
   const [selectedModel, setSelectedModel] = useState(null)

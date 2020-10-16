@@ -22,41 +22,49 @@ class History extends React.Component {
         uri: null
     }
 
+    
+
     renderList = () => {
+        const { route, navigation } = this.props;
+        const { plant } = route.params;
         let items = []
+        console.log('Getting history for:', plant)
         for (let i in this.props.diagnoses) {
-                items.push(
-            <View key = {i} styles = {styles.container}>
-                <Image source={{ uri: this.props.diagnoses[i].uri }} style={{
-                    width: 325,
-                    height: 325,
-                    position: 'relative',
-                    marginTop: 10,
-                    marginBottom: 15,
-                    // top: 10,
-                    // left: 10,
-                    // bottom: 10,
-                    // right: 10,
-                }} />
-                <Text>
-                <Text style = {{fontWeight: "bold"}}>Plant:</Text><Text>{this.props.diagnoses[i].plant}{'\n'}</Text>
-                <Text style = {{fontWeight: "bold"}}>Diagnosis:</Text><Text>{this.props.diagnoses[i].diag}</Text>
-                </Text>
+            if (plant !== this.props.diagnoses[i].plant && plant !== 'all') {
+                continue
+            }
+            items.push(
+                <View key={i} styles={styles.container}>
+                    <Image source={{ uri: this.props.diagnoses[i].uri }} style={{
+                        width: 400,
+                        height: 400,
+                        position: 'relative',
+                        marginTop: 10,
+                        marginBottom: 15,
+                        // top: 10,
+                        // left: 10,
+                        // bottom: 10,
+                        // right: 10,
+                    }} />
+                        <View style ={{width: 400, flexDirection: 'row'}}><Text style={{ fontSize: 20, fontWeight: "bold" }}>Plant: </Text><Text style = {{fontSize: 20, }}>{this.props.diagnoses[i].plant}</Text></View>
+                        <View style ={{width: 400, flexDirection: 'row'}}><Text style={{ fontSize: 20, fontWeight: "bold" }}>Diagnosis: </Text><Text style = {{fontSize: 20, }}>{this.props.diagnoses[i].diag}</Text></View>
+
                 </View>)
-        
+
+
         }
         return items
     }
 
     render() {
         return (
-            <View style = {styles.container}>
-                <Text style={{ fontSize: 40, margin: 30, fontWeight: 'bold',  }}>Previous Diagnoses</Text>
-                {this.renderList()}
-                
+            <View style={styles.container}>
+                <Text style={{ fontSize: 40, margin: 60, fontWeight: 'bold', }}>Previous Diagnoses</Text>
+                <ScrollView>{this.renderList()}</ScrollView>
+
                 <TouchableOpacity
                     // style={styles2.ismageWrapper}
-                    onPress={() => { this.props.navigation.navigate("ImageInput") }}>
+                    onPress={() => { this.props.navigation.goBack() }}>
                     {/* was originally styles.choosetext */}
                     <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\nBack"} </Text>
                 </TouchableOpacity>
@@ -104,7 +112,7 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         top: 20,
         marginBottom: 40,
-        
+
     },
     choosetext: {
         fontWeight: "bold",

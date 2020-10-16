@@ -57,41 +57,54 @@ class PlantInfo extends React.Component {
 
     return (
       <View style={styles.container}>
+
         <View style={styles.imageContainer}>
           <GetCoverImage plant={this.props.model} screen="PlantInfo" />
         </View>
+
         <TouchableOpacity
-            // style={styles2.ismageWrapper}
-            style = {{left: 25}}
-            onPress={() => { this.props.navigation.navigate("Index") }}>
-            {/* was originally styles.choosetext */}
-            <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\nBack"} </Text>
-          </TouchableOpacity>
-        <View style = {{left: 15}}>
-    <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold', }}>{this.props.model} Plant {'\n'}</Text>
-        </View>
-        
+          // style={styles2.ismageWrapper}
+          style={{ left: 25 }}
+          onPress={() => { this.props.navigation.navigate("Index") }}>
+          {/* was originally styles.choosetext */}
+          <Text style={{ color: '#009900', fontWeight: 'bold', fontSize: 20 }}>{"\nBack"} </Text>
+        </TouchableOpacity>
 
 
 
+        <View style={{ left: 25, flexDirection: 'column', justifyContent: 'space-between' }}>
+          <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold', }}>{this.props.model} Plant</Text>
+          <View style={{ justifyContent: 'flex-start', flexDirection: 'row' }}>
+            
 
-        <View >
-          <View style ={{left: 15}}>
-            <Descriptions plant={this.props.model} />
-            </View>
-
-          <TouchableOpacity
-            style={styles.imageWrapper}
-            onPress={() => this.props.navigation.navigate("ImageInput", {})}
-          >
+            <TouchableOpacity
+              style={styles.imageWrapper}
+              onPress={() => this.props.navigation.navigate("ImageInput", {})}
+            >
               <Text style={styles.choosetext}>Identify Diseases</Text>
-          </TouchableOpacity>
-          
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.historyButton}
+              onPress={() => {
+                console.log('Going to history for ' + this.props.model)
+                this.props.navigation.navigate("History", { plant: this.props.model })
+              }
+
+
+              }
+            >
+              <Text style={styles.choosetext}>View previous {this.props.model} diagnoses</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
 
-
-
+        <View style={{ left: 25 }}>
+          <ScrollView>
+            <Descriptions plant={this.props.model} />
+          </ScrollView>
+        </View>
       </View>
 
     )
@@ -104,7 +117,8 @@ class PlantInfo extends React.Component {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 65,
+    // marginBottom: 65,
+    flexDirection: 'column',
     // backgroundColor: '#171f24',
     // alignItems: 'center',
     justifyContent: 'flex-start',
@@ -116,23 +130,53 @@ export const styles = StyleSheet.create({
     // alignItems: 'left'
   },
   choosetext: {
-    fontWeight: "bold",
-    color: '#ffffff',
+    // fontWeight: "bold",
+    color: '#FFFFFF',
     fontSize: 20
   },
   loadingModelContainer: {
     flexDirection: 'row',
     marginTop: 10
   },
-  imageWrapper: {
-    // width: 325,
-    height: 80,
+  historyButton: {
+    width: 275,
+    // width: '100%',
+    height: 60,
     padding: 10,
-    borderRadius: 10,
+    bottom: 0,
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft:20,
+    borderRadius: 50,
     // borderStyle: 'dashed',
-    marginTop: 40,
+    // justifyContent: 'space-between',
+    // marginTop: 40,
+
     backgroundColor: '#009900',
-    marginBottom: 10,
+    // borderWidth: 5, 
+    // borderColor: '#009900',
+    // marginBottom: 10,
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  imageWrapper: {
+    width: 200,
+    // width: '100%',
+    height: 60,
+    padding: 10,
+    bottom: 0,
+    marginTop: 20,
+    marginBottom: 20,
+    borderRadius: 50,
+    // borderStyle: 'dashed',
+    // justifyContent: 'space-between',
+    // marginTop: 40,
+
+    backgroundColor: '#009900',
+    // borderWidth: 5, 
+    // borderColor: '#009900',
+    // marginBottom: 10,
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center'

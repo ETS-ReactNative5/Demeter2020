@@ -59,7 +59,7 @@ class Index extends React.Component {
           <View style={styles.loadingContainer}>
             <Text style={{ fontSize: 40, top: 7, fontWeight: 'bold',color:"#009900"  }}>Demeter</Text>
             <View style={styles.loadingModelContainer}>
-              <Text style={styles.text}>Welcome to the helpful plant growing app!</Text>
+              <Text style={styles.text}>Welcome to Demeter!</Text>
               <Text style={styles.text}>Select a plant for care information and disease detection.</Text>
               
             </View> 
@@ -218,6 +218,12 @@ class Index extends React.Component {
 
           </View>
 
+          <TouchableOpacity
+            style={styles.historyButton}
+            onPress={() => this.props.navigation.navigate("History", {plant: "all"})}
+          >
+            <Text style={styles.historyText}>View your previous diagonses</Text>
+          </TouchableOpacity>
         </View>
       )
 
@@ -233,6 +239,29 @@ export const styles = StyleSheet.create({
     // backgroundColor: '#171f24',
     
     justifyContent: 'center'
+  },
+  choosetext:{
+    color: '#000000',
+    fontSize: 20,
+  },
+  historyButton:{
+    alignSelf: 'center',
+    width: 325,
+    // width: '100%',
+    height: 60,
+    bottom: 0,
+    borderRadius: 50,
+    // borderStyle: 'dashed',
+    // justifyContent: 'space-between',
+    // marginTop: 40,
+
+    backgroundColor: '#009900',
+    // borderWidth: 5, 
+    // borderColor: '#009900',
+    // marginBottom: 10,
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   loadingContainer: {
     marginTop: 80,
@@ -250,10 +279,9 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     top: 20,
     marginBottom: 10,
-    
   },
-  choosetext: {
-    fontWeight: "bold",
+  historyText: {
+    color: '#FFFFFF',
     fontSize: 20
   },
   loadingModelContainer: {
