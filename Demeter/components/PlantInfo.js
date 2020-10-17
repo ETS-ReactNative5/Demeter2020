@@ -94,13 +94,13 @@ class PlantInfo extends React.Component {
 
               }
             >
-              <Text style={styles.choosetext}>View previous {this.props.model} diagnoses</Text>
+              <Text style={styles.choosetext}>View Previous {this.props.model} Diagnoses</Text>
             </TouchableOpacity>
           </View>
         </View>
 
 
-        <View style={{ left: 25 }}>
+        <View style={{ left: 25, flex:1 }}>
           <ScrollView>
             <Descriptions plant={this.props.model} />
           </ScrollView>
@@ -139,7 +139,7 @@ export const styles = StyleSheet.create({
     marginTop: 10
   },
   historyButton: {
-    width: 275,
+    width: 370,
     // width: '100%',
     height: 60,
     padding: 10,

@@ -53,6 +53,9 @@ class History extends React.Component {
 
 
         }
+        if (items.length == 0){
+            items.push(<Text key={0} style={{ fontSize: 20}}>No diagnoses yet :)</Text>)
+        }
         return items
     }
 

@@ -222,7 +222,7 @@ class Index extends React.Component {
             style={styles.historyButton}
             onPress={() => this.props.navigation.navigate("History", {plant: "all"})}
           >
-            <Text style={styles.historyText}>View your previous diagonses</Text>
+            <Text style={styles.historyText}>View your previous diagnoses</Text>
           </TouchableOpacity>
         </View>
       )
