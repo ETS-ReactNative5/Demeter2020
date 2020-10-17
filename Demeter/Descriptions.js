@@ -43,7 +43,7 @@ let Descriptions = (props) => {
                         <Text style={styles.SectionTitle}>Growing & Maintenance Tips:</Text><Text style={styles.SectionText}>From birth, apple trees can take 6-10 years to mature, but if purchasing apple trees, it is best to look for healthy 1-2 year recommended cultivars from a reliable source. When watering, ensure the water soaks the soil thoroughly. Pruning will help avoid poor growth and delayed fruiting.{'\n'}</Text>
                         <Text style={styles.SubText}>Information courtesy of HGIC, PlantVillage, ScienceDirect, and UCANR</Text>
                     <Text style={{ color: 'blue' }}
-                        onPress={() => Linking.openURL('https://plantvillage.psu.edu/topics/apple/infos/diseases_and_pests_description_uses_propagation ')}>
+                        onPress={() => Linking.openURL('https://plantvillage.psu.edu/topics/apple/infos/diseases_and_pests_description_uses_propagation')}>
                         More information and tips
                         </Text>
                 </View>

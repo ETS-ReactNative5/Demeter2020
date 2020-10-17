@@ -316,7 +316,7 @@ class ImageInput extends React.Component {
                 
               }
             >
-                <Text style={styles.choosetext}>View previous {this.props.model} diagnoses</Text>
+                <Text style={styles.choosetext}>View Previous {this.props.model} Diagnoses</Text>
             </TouchableOpacity>
             <TouchableOpacity
                     // style={styles2.ismageWrapper}
