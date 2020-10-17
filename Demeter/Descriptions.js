@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -6,7 +6,7 @@ import {
     Image,
     TouchableOpacity,
     ScrollView,
-    Linking
+    Linking,
 } from 'react-native'
 import * as tf from '@tensorflow/tfjs'
 
