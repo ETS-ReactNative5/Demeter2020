@@ -78,7 +78,7 @@ function ImageOutput(props) {
             {/* <View>{predictions.map(p => renderPrediction(p))}</View> */}
             <ScrollView style={{ width: 400, height: 450, marginTop: 10 }}>
             <Text style={{ fontWeight: "bold", alignItems: 'center', justifyContent: 'center' }}>{"\n"}Disease Prediction: <Text style={{ fontWeight: "bold", color: '#ec2d01' }}>{predictions.name}{"\n"}</Text></Text>
-
+                {predictions.description}
 
             </ScrollView>
 

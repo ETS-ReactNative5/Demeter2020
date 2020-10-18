@@ -1,70 +1,113 @@
-import {Stylesheet,Text,
-    View,} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+    Text,
+    View,
+    Image,
+StyleSheet} from 'react-native';
 
 const TomatoClasses = {
     0: {
         name: 'Tomato Bacterial spot',
-        description:<View><Image require = {require('./assets/DiseaseDescs/Tomato Bacterial Spot.png')}/></View>
+        description: <Text>
+            <Text style = {{fontWeight: 'bold'}}>Causes</Text>{'\n'}
+{'\n'}      Xanthomonas vesicatoria, X. euvesicatoria, X. gardneri, and X. perforans.
+{'\n'}      Thrive in areas of high temperatures and humidity
+{'\n'}{'\n'}<Text style = {{fontWeight: 'bold'}}>Symptoms</Text>{'\n'}
+{'\n'}      Leaves have small brown circular spots surrounded by yellow halo
+{'\n'}      Spots occur on green and red fruit but do not result in rot
+{'\n'}{'\n'}<Text style = {{fontWeight: 'bold'}}>Management Strategies</Text>{'\n'}
+{'\n'}      Avoid overhead watering
+{'\n'}      Crop rotation in infested gardens
+{'\n'}      Pesticides are available to protect tomatoes and pepper from bacterial spot 
+{'\n'}      Disinfect pruners to limit spreading
+{'\n'}      Bury or remove crop debris at the end of season
+{'\n'}      Avoid high pressure sprays
+{'\n'}      Purchase high quality, certified disease free seed if possible 
+{'\n'} {'\n'} <Text style={{ color: 'blue' }}
+                        onPress={() => Linking.openURL('https://extension.umn.edu/diseases/bacterial-spot-tomato-and-pepper#-resistant-varieties-1875510')}>
+                        More information on Bacterial Spot
+                        </Text>
+            </Text>
+            
+        
         },
     1: {name: 'Tomato Late blight',
-        description: <View><Image require = {require('./assets/DiseaseDescs/Tomato Late Blight.png')}/></View>},
+        description: ''},
     2: {name: 'Tomato mosaic virus',
-        description:<></>},
+        description: ''},
     3: {name: 'Tomato Target Spot',
-    description:<></>},
+    description: ''},
     4: {name: 'Tomato Leaf Mold',
-    description:<></>},
+    description: ''},
     5: {name: 'Tomato Yellow Leaf Curl Virus',
-    description:<></>},
+    description: ''},
     6: {name: 'Tomato Early blight',
-        description: <View><Image require = {require('./assets/DiseaseDescs/Tomato Late Blight.png')}/></View>},
+        description: ''},
     7: {name: 'Tomato Spider mites',
-    description:<></>},
+    description: ''},
     8: {name: 'Tomato Septoria leaf spot',
-        description: <View><Image require = {require('./assets/DiseaseDescs/Tomato Septoria Leaf Spot.png')}/></View>},
-    9: {name: 'Tomato healthy', description:<></>}
+        description: <Text>
+        <Text style = {{fontWeight: 'bold'}}>Causes</Text>{'\n'}
+{'\n'}      Septoria lycopersici fungus
+{'\n'}      Severe in areas of persistent wet, humid weather
+
+{'\n'}{'\n'}<Text style = {{fontWeight: 'bold'}}>Symptoms</Text>{'\n'}
+{'\n'}      Tan, gray spots on the lower leaves
+
+{'\n'}      If lesions are numerous, leaves turn yellow, then brown, and then wither
+{'\n'}{'\n'}<Text style = {{fontWeight: 'bold'}}>Management Strategies</Text>{'\n'}
+{'\n'}      Remove diseased leaves
+{'\n'}      Improve air circulation
+{'\n'}      Avoid overhead irrigation 
+{'\n'}      Fungicidal sprays such as chlorothalonil
+{'\n'} {'\n'} <Text style={{ color: 'blue' }}
+                    onPress={() => Linking.openURL('https://extension.umn.edu/diseases/bacterial-spot-tomato-and-pepper#-resistant-varieties-1875510')}>
+                    More information on Septoria Leaf Spot
+                    </Text>
+        </Text>},
+    9: {name: 'Tomato healthy', description: ''}
 }
 
 const AppleClasses = {
-    0: {name: 'Apple scab',description:<></>},
-    1: {name: 'Apple healthy',description:<></>},
-    2: {name: 'Apple Cedar apple rust',description:<></>},
-    3:  {name:  'Apple Black rot',description:<></>},
+    0: {name: 'Apple scab',description: ''},
+    1: {name: 'Apple healthy',description: ''},
+    2: {name: 'Apple Cedar apple rust',description: ''},
+    3:  {name:  'Apple Black rot',description: ''},
 }
 
 const CherryClasses = {
-    0: {name: 'Cherry Powdery mildew',description:<></>},
-    1: {name: 'Cherry healthy',description:<></>},
+    0: {name: 'Cherry Powdery mildew',description: ''},
+    1: {name: 'Cherry healthy',description: ''},
 }
 
 const StrawberryClasses = {
-    0: {name: 'Strawberry Leaf scorch',description:<></>},
-    1: {name: 'Strawberry healthy',description:<></>},
+    0: {name: 'Strawberry Leaf scorch',description: ''},
+    1: {name: 'Strawberry healthy',description: ''},
 }
 
 const GrapeClasses = {
-    0: {name: 'Grape Leaf blight (Isariopsis Leaf Spot)',description:<></>},
-    1: {name: 'Grape Esca (Black Measles)',description:<></>},
-    2: {name: 'Grape healthy',description:<></>},
-    3: {name: 'Grape Black rot', description:<></>},
+    0: {name: 'Grape Leaf blight (Isariopsis Leaf Spot)',description: ''},
+    1: {name: 'Grape Esca (Black Measles)',description: ''},
+    2: {name: 'Grape healthy',description: ''},
+    3: {name: 'Grape Black rot', description: ''},
 }
 
 const PeachClasses ={
-    0: {name: 'Peach Bacterial spot',description:<></>},
-    1: {name: 'Peach healthy', description:<></>},
+    0: {name: 'Peach Bacterial spot',description: ''},
+    1: {name: 'Peach healthy', description: ''},
 }
 
 const CornClasses = {
-    0: {name: 'Corn (maize) Northern Leaf Blight',description:<></>},
-    1: {name: 'Corn (maize) Cercospora leaf spot Gray leaf spot',description:<></>},
-    2: {name: 'Corn (maize) healthy',description:<></>},
-    3: {name: 'Corn (maize) Common rust ', description:<></>},
+    0: {name: 'Corn (maize) Northern Leaf Blight',description: ''},
+    1: {name: 'Corn (maize) Cercospora leaf spot Gray leaf spot',description: ''},
+    2: {name: 'Corn (maize) healthy',description: ''},
+    3: {name: 'Corn (maize) Common rust ', description: ''},
 }
 
 const PotatoClasses = {
-    0: {name: 'Potato healthy',description:<></>},
-    1: {name: 'Potato Late blight',description:<></>},
-    2: {name: 'Potato Early blight', description:<></>},
+    0: {name: 'Potato healthy',description: ''},
+    1: {name: 'Potato Late blight',description: ''},
+    2: {name: 'Potato Early blight', description: ''},
 }
 
 const AllClasses = {

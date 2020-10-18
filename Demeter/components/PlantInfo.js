@@ -25,6 +25,7 @@ import { connect } from "react-redux";
 import GetCoverImage from "../GetCoverImage"
 import Descriptions from "../Descriptions"
 import AllClasses from "../classes.js"
+import Accordian from "./Accordian"
 
 
 const CONFIG = {
@@ -51,10 +52,21 @@ class PlantInfo extends React.Component {
   }
 
 
-
+  displayDiseases = (plant) => {
+    let items = []
+    for (let i in AllClasses[plant]) {
+      // console.log
+      items.push(
+        
+        <Accordian key = {i}
+                title = {AllClasses[plant][i].name}
+                data = {AllClasses[plant][i].description}
+            />)
+    }
+    return items
+  }
 
   render() {
-
     return (
       <View style={styles.container}>
 
@@ -103,6 +115,8 @@ class PlantInfo extends React.Component {
         <View style={{ left: 25, flex:1 }}>
           <ScrollView>
             <Descriptions plant={this.props.model} />
+            {this.displayDiseases(this.props.model)}
+            {/* {this.displayDiseases(this.props.model)} */}
           </ScrollView>
         </View>
       </View>
@@ -123,6 +137,10 @@ export const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: 'flex-start',
 
+  },
+  diseaseInfo: {
+    alignSelf: 'center',
+    
   },
   loadingContainer: {
     marginTop: 80,

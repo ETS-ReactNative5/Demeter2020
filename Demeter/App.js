@@ -68,6 +68,7 @@ import * as Permissions from 'expo-permissions';
 
 import History from './components/History'
 import PlantInfo from './components/PlantInfo'
+console.disableYellowBox = true;
 
 // import CameraRoll from './components/CameraRoll'
 // import { RNCamera } from 'react-native-camera';

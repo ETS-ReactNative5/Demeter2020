@@ -47,7 +47,7 @@ class History extends React.Component {
                         // right: 10,
                     }} />
                         <View style ={{width: 400, flexDirection: 'row'}}><Text style={{ fontSize: 20, fontWeight: "bold" }}>Plant: </Text><Text style = {{fontSize: 20, }}>{this.props.diagnoses[i].plant}</Text></View>
-                        <View style ={{width: 400, flexDirection: 'row'}}><Text style={{ fontSize: 20, fontWeight: "bold" }}>Diagnosis: </Text><Text style = {{fontSize: 20, }}>{this.props.diagnoses[i].diag}</Text></View>
+                        <View style ={{width: 400, flexDirection: 'row'}}><Text style={{ fontSize: 20, fontWeight: "bold" }}>Diagnosis: </Text><Text style = {{fontSize: 20, }}>{this.props.diagnoses[i].diag.name}</Text></View>
 
                 </View>)
 

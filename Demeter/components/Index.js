@@ -210,6 +210,7 @@ class Index extends React.Component {
                 
                   {/* <Text>placeholder</Text> */}
                   <GetCoverImage plant = "PepperBell" screen = "Index"/>
+                  
                 
               </TouchableOpacity>
               <Text style={styles.choosetext} >Bell Pepper</Text>
